@@ -9,7 +9,7 @@ import json
 
 tmdb = TMDb()
 tmdbMovie = Movie()
-tmdb.api_key = "62520f0cb1e77a57e1c66e073f288bf6"
+tmdb.api_key = "" #Your TMDB api key
 
 movieSimilarity = pickle.load(open("movieSimilarity.pkl", "rb"))
 data = pd.read_csv("processedData/FinalData.csv")
