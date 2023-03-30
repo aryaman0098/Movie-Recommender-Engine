@@ -5,24 +5,33 @@ import pandas as pd
 import pickle
 from tmdbv3api import TMDb, Movie
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+THE_MOVIE_DB_URL = os.getenv('THE_MOVIE_DB_URL')
+TMDB_IMAGE_URL = os.getenv('TMDB_IMAGE_URL')
 
 
 tmdb = TMDb()
 tmdbMovie = Movie()
-tmdb.api_key = "" #Your TMDB api key
+tmdb.api_key = os.getenv('TMDB_API_KEY')
 
 movieSimilarity = pickle.load(open("movieSimilarity.pkl", "rb"))
 data = pd.read_csv("processedData/FinalData.csv")
 
 
 def fetchPosterOverView(movieID):
-    response = requests.get("https://api.themoviedb.org/3/movie/{}?api_key={}".format(movieID, tmdb.api_key))
+    url = requests.get(THE_MOVIE_DB_URL + "/3/movie/{}?api_key={}".format(movieID, tmdb.api_key))
+    print(url)
+    response = requests.get(THE_MOVIE_DB_URL + "/3/movie/{}?api_key={}".format(movieID, tmdb.api_key))
     data = response.json()
-    return "http://image.tmdb.org/t/p/w500/" + data["poster_path"], data["overview"]
+    return TMDB_IMAGE_URL + data["poster_path"], data["overview"]
 
 
 def fetchInputDetails(movieId):
-    response = requests.get("https://api.themoviedb.org/3/movie/{}?api_key={}&append_to_response=credits".format(movieId, tmdb.api_key)) 
+    response = requests.get(THE_MOVIE_DB_URL + "3/movie/{}?api_key={}&append_to_response=credits".format(movieId, tmdb.api_key)) 
     data = response.json()
     details = {}
     details["title"] = data["original_title"]
@@ -68,9 +77,6 @@ def hello_world():
     for i in data["Title"]:
         movieList.append(i)
 
-    print(len(movieList))
-    print(movieSimilarity.shape)
-
 
     recommendedMovies = []
     recommendedMoviesPosters = []
@@ -83,12 +89,15 @@ def hello_world():
             x = True
         except:
             recommendedMovies = ["Movies Not Found!!"]
-    return render_template("home.html", names = recommendedMovies, 
-                                        posters = recommendedMoviesPosters, 
-                                        details = inputDetails,
-                                        overview = overview, 
-                                        movieList = movieList,
-                                        toPrint = x)
+    return render_template(
+        "home.html", 
+        names = recommendedMovies, 
+        posters = recommendedMoviesPosters, 
+        details = inputDetails,
+        overview = overview, 
+        movieList = movieList,
+        toPrint = x
+    )
 
 if __name__ == "__main__":
-    app.run()
+    app.run()   
