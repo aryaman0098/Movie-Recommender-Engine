@@ -21,6 +21,15 @@ To run using this web app, create a virtual env and install the dependencies as 
 ```
 pip install -r requirements.txt
 ```
+
+you will also need to create and `.env` environment file in the root directory of the type
+
+```
+THE_MOVIE_DB_URL = "https://api.themoviedb.org"
+TMDB_IMAGE_URL = "http://image.tmdb.org/t/p/w500/"
+TMDB_API_KEY = "#YOUR_TMDB_API_KEY#"
+```
+
 followed by
 
 ```
