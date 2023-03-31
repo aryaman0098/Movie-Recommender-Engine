@@ -16,13 +16,7 @@ Movies upto 2019 have been added in this project. More movies will be added soon
 
 ## Instructions to use
 
-To run using this web app, create a virtual env and install the dependencies as mentioned in requirement.txt. To install the dependencies, open command propmt or terminal and run the following command - 
-
-```
-pip install -r requirements.txt
-```
-
-you will also need to create and `.env` environment file in the root directory of the type
+You will also need to create and `.env` environment file in the root directory of the type
 
 ```
 THE_MOVIE_DB_URL = "https://api.themoviedb.org"
@@ -30,6 +24,11 @@ TMDB_IMAGE_URL = "http://image.tmdb.org/t/p/w500/"
 TMDB_API_KEY = "#YOUR_TMDB_API_KEY#"
 ```
 
+To run using this web app, create a virtual python env and install the dependencies as mentioned in requirement.txt. To install the dependencies, open command propmt or terminal and run the following command - 
+
+```
+pip install -r requirements.txt
+```
 followed by
 
 ```
