@@ -22,16 +22,15 @@ movieSimilarity = pickle.load(open("movieSimilarity.pkl", "rb"))
 data = pd.read_csv("processedData/FinalData.csv")
 
 
-def fetchPosterOverView(movieID):
+def fetchMoviePosterOverView(movieID):
     url = requests.get(THE_MOVIE_DB_URL + "/3/movie/{}?api_key={}".format(movieID, tmdb.api_key))
-    print(url)
     response = requests.get(THE_MOVIE_DB_URL + "/3/movie/{}?api_key={}".format(movieID, tmdb.api_key))
     data = response.json()
     return TMDB_IMAGE_URL + data["poster_path"], data["overview"]
 
 
-def fetchInputDetails(movieId):
-    response = requests.get(THE_MOVIE_DB_URL + "3/movie/{}?api_key={}&append_to_response=credits".format(movieId, tmdb.api_key)) 
+def fetchMovieDetails(movieId):
+    response = requests.get(THE_MOVIE_DB_URL + "/3/movie/{}?api_key={}&append_to_response=credits".format(movieId, tmdb.api_key)) 
     data = response.json()
     details = {}
     details["title"] = data["original_title"]
@@ -47,7 +46,6 @@ def recommend(movie):
     movieIndex = data[data["Title"] == movie].index[0]
     distances = movieSimilarity[movieIndex]
     similarMoviesList = sorted(list(enumerate(distances)), reverse = True, key = lambda x : x[1])[0:13]
-    
     listOfRecommendations = []
     recommendedMoviesPosters = []
     inputMovieDetails = []
@@ -58,8 +56,8 @@ def recommend(movie):
         listOfRecommendations.append(data.iloc[i[0]].Title)
         movieId = tmdbMovie.search(data.iloc[i[0]].Title)[0].id
         if movie == data.iloc[i[0]].Title:
-            inputMovieDetails = fetchInputDetails(movieId)
-        path, overview= fetchPosterOverView(movieId)
+            inputMovieDetails = fetchMovieDetails(movieId)
+        path, overview= fetchMoviePosterOverView(movieId)
         recommendedMoviesPosters.append(path)
         recommendedMoviesOverview.append(overview)
     return listOfRecommendations, recommendedMoviesPosters, inputMovieDetails, recommendedMoviesOverview
