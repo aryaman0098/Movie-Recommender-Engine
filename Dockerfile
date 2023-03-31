@@ -10,7 +10,7 @@ COPY . /app
 # Install the application dependencies
 RUN pip3 install -r requirements.txt
 
-EXPOSE 5000
+# EXPOSE 5000
 
 # Define the entry point for the container
 CMD python3 ./app.py
