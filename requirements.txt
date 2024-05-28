@@ -26,3 +26,5 @@ tmdbv3api==1.7.6
 urllib3==1.26.6
 Werkzeug==2.0.1
 yarg==0.1.9
+pickle5==0.0.11
+

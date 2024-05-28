@@ -2,7 +2,7 @@ import requests
 from flask import Flask, render_template, request
 from flask.wrappers import Response 
 import pandas as pd
-import pickle
+import pickle5 as pickle
 from tmdbv3api import TMDb, Movie
 import json
 import os
@@ -18,7 +18,9 @@ tmdb = TMDb()
 tmdbMovie = Movie()
 tmdb.api_key = os.getenv('TMDB_API_KEY')
 
-movieSimilarity = pickle.load(open("movieSimilarity.pkl", "rb"))
+with open("movieSimilarity.pkl", "rb") as file:
+    movieSimilarity = pickle.load(file)
+# movieSimilarity = pickle.load(open("movieSimilarity.pkl", "rb"))
 data = pd.read_csv("processedData/FinalData.csv")
 
 
