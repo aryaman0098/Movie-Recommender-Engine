@@ -24,7 +24,7 @@ TMDB_IMAGE_URL = "http://image.tmdb.org/t/p/w500/"
 TMDB_API_KEY = "#YOUR_TMDB_API_KEY#"
 ```
 
-To run using this web app, create a virtual python env and install the dependencies as mentioned in requirement.txt. To install the dependencies, open command propmt or terminal and run the following command - 
+To run using this web app, create a virtual python env and install the dependencies as mentioned in requirement.txt. To install the dependencies, open command propmt or terminal and run the following command
 
 ```
 pip install -r requirements.txt
